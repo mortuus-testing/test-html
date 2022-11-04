@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      color: #DDD;
+      display: flex;
+    }
+    .container {
+      margin: auto;
+      width: 300px;
+      height: 300px;
+      border: 2px solid #DDD;
+    }
+  </style>
+  <title>Reactive HTML</title>
+</head>
+<body>
+  <div class="container">
+    <reactive-wrapper subscribe="count">
+      <h1 id="ttl">Hello</h1>
+      <h3>The count is {count}</h3>
+    </reactive-wrapper>
+
+
+    <reactive-wrapper subscribe="id">
+      <h1>The id is {id}</h1>
+    </reactive-wrapper>
+
+    <button id="add-btn">ADD</button>
+    <button id="reset-btn">RESET</button>
+  </div>
+
+  <script>
+    const dataPool = new Map()
+    const subscribePool = new Map()
+
+    window.customElements.define('reactive-wrapper', class extends HTMLElement {
+      constructor() {
+        super()
+        this.provider = this.getAttribute('subscribe')
+        this.base     = this.innerHTML
+        subscribePool.set(this.provider, this);
+      }
+
+      render() {
+        this.innerHTML = this.base.replace(`{${this.provider}}`, dataPool.get(this.provider))
+      }
+    })
+
+    function createData({name, value}) {
+      dataPool.set(name, value)
+
+      return [
+        function() {return dataPool.get(name)},
+        function(data) {
+          // Update Data
+          dataPool.set(name, data)
+
+          // Notify subscriber
+          subscribePool.get(name).render()
+        }
+      ]
+    }
+    
+    const [getCount, setCount] = createData({
+      name: 'count',
+      value: 0
+    })
+
+    document.getElementById('add-btn').addEventListener('click', () => {
+      setCount(getCount() + 1)
+    })
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      setCount(0)
+    })
+
+    const [id, setId] = createData({
+      name: 'id',
+      value: 'not def'
+    })
+
+
+    subscribePool.forEach(x => x.render())
+  </script>  
+</body>
+</html>

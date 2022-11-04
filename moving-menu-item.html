@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+        }
+
+        .menu {
+            margin: auto;
+            width: 700px;
+            height: 100px;
+            background-color: #111;
+            display: flex;
+            justify-content: space-around;
+        }
+        .menu-item {
+            width: 100px;
+            height: 100px;
+            padding: 25px;
+            color: #666;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        .menu-item:hover {
+            cursor: pointer;
+            transition: .2s;
+            color: #83F;
+        }
+        .menu-item::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '';
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            transform: translateZ(-1px);
+            background-color: #111;
+            /* border-top: 5px solid red; */
+        }
+        .menu-item, .menu-item::before {
+            transition: .4s;
+        }
+        .active {
+            padding: 0 25px 25px 25px;
+            color: #83F;
+        }
+        .active::before {
+            top: -20px;
+        }
+    </style>
+    <title>Moving Menu Item</title>
+</head>
+<body>
+    
+    <div class="menu">
+
+        <div class="menu-item active">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        </div>
+
+        <div class="menu-item">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+        </div>
+
+        <div class="menu-item">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+        </div>
+
+        <div class="menu-item">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+        </div>
+
+    </div>
+
+    <script>
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.menu-item').forEach(item => {item.classList.remove('active')})
+                this.classList.toggle('active')
+            })
+        })
+    </script>
+</body>
+</html>

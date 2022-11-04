@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      min-height: 100vh;
+      background-color: #eef3ff;
+      scrollbar-gutter: auto;
+      font-family: sans-serif;
+    }
+    main {
+      margin: auto;
+      width: 100%;
+      max-width: 600px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 50px 0;
+    }
+    @media screen and (max-width: 600px) {
+      main {
+        padding: 0;
+      }
+    }
+    .post {
+      width: 100%;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px #99b8ff;
+      position: relative;
+      padding: 20px;
+      padding-right: 70px;
+    }
+    .post__title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .post__controls {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50px;
+      height: 100%;
+      background-color: #88acff;
+      border-radius: 5px;
+      box-shadow: -2px 0 5px -3px black;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .post__controls__top, .post__controls__bottom {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .post__controls__item {
+      width: 50px;
+      height: 50px;
+      padding: 10px;
+      color: white;
+      cursor: pointer;
+    }
+    .post__controls__item:hover {
+      background-color: #aac4ff;
+    }
+    .post__controls__bottom > .post__controls__item:last-child {
+      border-radius: 0 5px 5px 0;
+      background-color: #5588ff;
+    }
+    .post__controls__bottom > .post__controls__item:last-child:hover {
+      border-radius: 0 5px 5px 0;
+      background-color: #6694ff;
+    }
+    .post__controls__reaction {
+      width: 100%;
+      height: 100%;
+      background-color: #dde7ff;
+      border: 2px dotted gray;
+      border-radius: 50%;
+    }
+    .post__answerer {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      gap: 3px;
+    }
+    .post__answerer__icon {
+      width: 50px;
+      height: 50px;
+      padding: 3px;
+      color: #88acff;
+    }
+    .post__answerer__data {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .post__answerer__data__name {
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .post__answerer__data__credential {
+      font-size: 12px;
+    }
+    .post__tags {
+      width: 100%;
+      height: 20px;
+      display: flex;
+      margin-bottom: 5px;
+      gap: 5px;
+    }
+    .post__tags__solid {
+      background-color: #F85;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 7px;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    .post__tags__tag {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 7px;
+      font-size: 14px;
+    }
+    .post__tags__tag::before {
+      content: '#';
+      margin-right: 2px;
+      font-weight: bolder;
+      font-size: 13px;
+      color: #335299;
+    }
+    .post__tags__more {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background-color: #88acff;
+      font-weight: bold;
+      color: white;
+    }
+    .post__body {
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  </style>
+  <title>Colorize UI</title>
+</head>
+<body>
+  
+  <main>
+    <div class="post">
+      <div class="post__title">
+        Why sky color is blue?
+      </div>
+      <div class="post__answerer">
+        <div class="post__answerer__icon">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path></svg>
+        </div>
+        <div class="post__answerer__data">
+          <div class="post__answerer__data__name">
+            Thomas
+          </div>
+          <div class="post__answerer__data__credential">
+            Bachelor in Science
+          </div>
+        </div>
+      </div>
+      <div class="post__tags">
+        <div class="post__tags__solid">
+          NSFW
+        </div>
+        <div class="post__tags__solid" style="background-color: #F55;">
+          Explicit
+        </div>
+        <div class="post__tags__tag">
+          Art
+        </div>
+        <div class="post__tags__tag">
+          Science
+        </div>
+        <div class="post__tags__more">
+          +5
+        </div>
+      </div>
+      <div class="post__body">
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing, quibusdam veniam.</p>
+        <img src="http://picsum.photos/10/10" alt="picsum" style="width: 70%; aspect-ratio: 4/3; margin: auto;">
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim sed quos exercitationem necessitatibus nemo voluptatem laborum eum laboriosam reiciendis cupiditate dolor quod, sint distinctio quasi ipsam, eligendi corrupti ...</p>
+      </div>
+      <div class="post__controls">
+        <div class="post__controls__top">
+          <div class="post__controls__item">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div class="post__controls__item">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
+          </div>
+        </div>
+        <div class="post__controls__bottom">
+          <!-- <div class="post__controls__item">
+            <div class="post__controls__reaction"></div>
+          </div> -->
+          <div class="post__controls__item" style="color: #ffa05c;">
+            <svg style="filter: drop-shadow(0 0 7px #ffdbc2);" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div class="post__controls__item">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div class="post__controls__item">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"></path></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const main = document.querySelector('main')
+    const post = main.innerHTML
+
+    for (let i=0; i<4; i++) {
+      main.innerHTML += post;
+    }
+  </script>
+</body>
+</html>

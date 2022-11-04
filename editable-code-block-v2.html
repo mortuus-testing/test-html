@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/base16/tomorrow-night.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100vw;
+            min-height: 100vh;
+            display: flex;
+        }
+        .code-block {
+            margin: auto;
+            width: 600px;
+            height: auto;
+            min-height: 400px;
+            outline: 2px solid #111;
+            position: relative;
+        }
+        .code-input-container, .code-output-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+        .code-input, .code-output {
+            white-space: pre-wrap !important;
+            display: inline-block;
+            padding: 40px !important;
+        }
+        .code-input:focus, .code-input:active {
+            border: none;
+            outline: none;
+        }
+        .code-input-container {
+            z-index: 2;
+            background-color: transparent;
+        }
+        .code-output-container {
+            z-index: 1;
+            background-color: #2D2D2D;
+        }
+        .code-input {
+            color: transparent;
+            caret-color:red;
+        }
+    </style>
+    <title>Editable COde BLock</title>
+</head>
+<body>
+    
+    <div class="code-block">
+        <pre class="code-input-container"><code class="code-input" spellcheck="false" contenteditable="true">console.log(123);</code></pre>
+        <pre class="code-output-container lang-python"><code class="code-output"></code></pre>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script>
+        const codeInput = document.querySelector('.code-input');
+        const codeOutput = document.querySelector('.code-output');
+
+        codeInput.addEventListener('input', () => {
+            copyContent();
+        })
+
+        function copyContent() {
+            let content = ''
+            codeInput.childNodes.forEach(node => {
+                content += node.data;
+            })
+            codeOutput.innerHTML = content;
+            hljs.highlightElement(codeOutput);
+        }
+
+        copyContent()
+
+
+
+        html2canvas(document.querySelector(".code-output-container")).then(canvas => {
+            const link      = document.createElement('a')
+            link.download   = 'image.png'
+            link.href       = canvas.toDataURL('image/png')
+            // link.click()
+        });
+
+
+    </script>
+</body>
+</html>

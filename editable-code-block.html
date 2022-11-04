@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/base16/default-dark.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        pre {
+            /* margin: auto; */
+            width: 600px;
+            height: 400px;
+            border: 2px solid #222;
+            padding: 50px;
+            font-size: 16px;
+            background-color: #111;
+        }
+        code {
+            white-space: pre-wrap;  /* Make text warp to new line */
+            background-color: #111 !important;
+        }
+        .code-input-container {
+            position: absolute;
+            background-color: #FFF0;
+        }
+        .code-input {
+            background-color: #FFF0 !important;
+        }
+    </style>
+    <title>Editable Code Block</title>
+</head>
+<body>
+
+
+<!-- <pre class="code-input-container"><code contenteditable="true" class="code-input" spellcheck="false">#include 'stdio.h'
+#include 'stdlib.h'
+
+int main() {
+    std::cout << 'Hello World!' << std::endl;
+    std::cout << 'This is an example of a very long text' << std::endl;
+}
+</code></pre> -->
+<pre><code contenteditable="true" class="code-output">#include 'stdio.h'
+#include 'stdlib.h'
+
+int main() {
+    std::cout << 'Hello World!' << std::endl;
+    std::cout << 'This is an example of a very long text' << std::endl;
+}
+</code></pre>
+
+    <textarea name="" id="lulu" cols="30" rows="10"></textarea>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+        
+        input = document.querySelector('.code-input');
+        output = document.querySelector('.code-output');
+
+        // input.addEventListener('input', function() {
+        //     console.log(this.textContent)
+        //     output.textContent = this.textContent;
+        //     hljs.highlightElement(output)
+        // })
+
+        document.getElementById('lulu').addEventListener('input', function() {
+            // console.log(this.textContent)
+            output.textContent = this.value;
+            hljs.highlightElement(output);
+        })
+    </script>
+</body>
+</html>

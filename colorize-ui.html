@@ -162,6 +162,28 @@
       flex-direction: column;
       gap: 10px;
     }
+    .comments {
+      width: 100%;
+      background-color: white;
+      border-radius: 5px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .comments__item {
+      border-radius: 5px;
+      border: 2px solid #aac4ff;
+      padding: 10px;
+    }
+    .comments__item__name {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .comments__item__body {
+      padding: 5px;
+      font-size: 12px;
+    }
   </style>
   <title>Colorize UI</title>
 </head>
@@ -204,7 +226,7 @@
       </div>
       <div class="post__body">
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing, quibusdam veniam.</p>
-        <img src="http://picsum.photos/10/10" alt="picsum" style="width: 70%; aspect-ratio: 4/3; margin: auto;">
+        <img src="http://picsum.photos/10/10" alt="picsum" style="width: 100%; aspect-ratio: 4/3; margin: auto;">
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim sed quos exercitationem necessitatibus nemo voluptatem laborum eum laboriosam reiciendis cupiditate dolor quod, sint distinctio quasi ipsam, eligendi corrupti ...</p>
       </div>
       <div class="post__controls">
@@ -217,18 +239,36 @@
           </div>
         </div>
         <div class="post__controls__bottom">
-          <!-- <div class="post__controls__item">
+          <div class="post__controls__item">
             <div class="post__controls__reaction"></div>
-          </div> -->
-          <div class="post__controls__item" style="color: #ffa05c;">
-            <svg style="filter: drop-shadow(0 0 7px #ffdbc2);" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path></svg>
           </div>
+          <!-- <div class="post__controls__item" style="color: #ffa05c;">
+            <svg style="filter: drop-shadow(0 0 7px #ffdbc2);" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"></path></svg>
+          </div> -->
           <div class="post__controls__item">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"></path></svg>
           </div>
           <div class="post__controls__item">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"></path></svg>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="comments">
+      <div class="comments__item">
+        <div class="comments__item__name">
+          Alex
+        </div>
+        <div class="comments__item__body">
+          Good Post!
+        </div>
+      </div>
+      <div class="comments__item">
+        <div class="comments__item__name">
+          Alex
+        </div>
+        <div class="comments__item__body">
+          Good Post!
         </div>
       </div>
     </div>

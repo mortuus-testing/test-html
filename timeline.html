@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      /* width: calc(100vw - 30px); */
+      width: 100vw;
+      min-height: 100vh;
+      font-family: sans-serif;
+    }
+
+    main {
+      margin: auto;
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 50px 0;
+    }
+    .post {
+      width: 100%;
+      padding: 20px;
+      border-radius: 5px;
+      border: 1px solid gray;
+      background-color: white;
+    }
+    @media screen and (max-width: 500px) {
+      main {
+        background-color: #DDF;
+      }
+      .post {
+        border-right: none;
+        border-left: none;
+        border-radius: 0;
+      }
+    }
+    .post__title {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .post__answerer {
+      height: 35px;
+      display: flex;
+      margin: 10px 0;
+    }
+    .post__answerer__profile {
+      width: 35px;
+      height: 35px;
+    }
+    .post__answerer__data {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .post__answerer__data__name {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .post__answerer__data__credential {
+      font-size: 12px;
+    }
+    .post__answerer__date {
+      flex-grow: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      font-size: 14px;
+    }
+    .post__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .post__tags__solid, .post__tags__tag {
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 13px;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .post__tags__solid {
+      color: white;
+      background-color: #333;
+      font-weight: bold;
+      opacity: .8;
+    }
+    .post__tags__solid:hover {
+      opacity: 1;
+    }
+    .post__tags__tag {
+      background-color: #EEF;
+    }
+    .post__tags__tag:hover {
+      background-color: #DDF;
+    }
+    .post__footer {
+      display: flex;
+      justify-content: space-between;
+    }
+    .post__badge {
+      height: 35px;
+      display: flex;
+      gap: 10px;
+      --color-badge: #F83;
+      --color-badge: gray;
+    }
+    .post__badge__icon {
+      height: 35px;
+      width: 35px;
+      min-height: 35px;
+      min-width: 35px;
+      color: white;
+      border-radius: 50%;
+      padding: 4px;
+      background-color: var(--color-badge);
+      box-shadow: 0 0 3px var(--color-badge);
+    }
+    .post__badge__name {
+      color: var(--color-badge);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+    }
+    .post__read {
+      padding: 0 15px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .post__read:hover {
+      background-color: #333;
+    }
+    .post--featured {
+      background-color: #DDF;
+    }
+    .post--featured .post__tags__tag {
+      background-color: white;
+    }
+    .post--featured .post__tags__tag:hover {
+      background-color: #EEE;
+    }
+  </style>
+  <title>Timeline</title>
+</head>
+<body>
+  
+  <main>
+
+    <!-- Post 1 -->
+    <div class="post">
+      <div class="post__title">Why sky color is blue?</div>
+      <div class="post__answerer">
+        <div class="post__answerer__profile">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="post__answerer__data">
+          <div class="post__answerer__data__name">Thomas N. Lean</div>
+          <div class="post__answerer__data__credential">Scientist at NASA</div>
+        </div>
+        <div class="post__answerer__date">
+          12 November 2020
+        </div>
+      </div>
+      <div class="post__tags">
+        <div class="post__tags__solid" style="background-color: #F83;">NSFW</div>
+        <div class="post__tags__solid" style="background-color: #F55;">Explicit Content</div>
+        <div class="post__tags__tag">Science</div>
+        <div class="post__tags__tag">General Knowledge</div>
+        <div class="post__tags__tag">Art</div>
+        <div class="post__tags__tag">Science</div>
+        <div class="post__tags__tag">History</div>
+      </div>
+      <hr style="margin: 20px 0;">
+      <div class="post__footer">
+        <div class="post__badge" style="--color-badge: #F85;">
+          <div class="post__badge__icon">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+            </svg>
+          </div>
+          <div class="post__badge__name">
+            20K people find this answer insighful
+          </div>
+        </div>
+        <button class="post__read">Read</button>
+      </div>
+    </div>
+
+    <!-- Post 2 -->
+    <div class="post">
+      <div class="post__title">What place on earth that looks like in another dimension?</div>
+      <div class="post__answerer">
+        <div class="post__answerer__profile">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="post__answerer__data">
+          <div class="post__answerer__data__name">Thomas N. Lean</div>
+          <div class="post__answerer__data__credential">Scientist at NASA</div>
+        </div>
+        <div class="post__answerer__date">
+          02 October 2013
+        </div>
+      </div>
+      <div class="post__tags">
+        <div class="post__tags__solid" style="background-color: #55F;">Images</div>
+        <div class="post__tags__tag">Science</div>
+        <div class="post__tags__tag">Traveling</div>
+        <div class="post__tags__tag">Art</div>
+        <div class="post__tags__tag">Science</div>
+        <div class="post__tags__tag">History</div>
+      </div>
+      <hr style="margin: 20px 0;">
+      <div class="post__footer">
+        <div class="post__badge" style="--color-badge: #F55;">
+          <div class="post__badge__icon">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+          </div>
+          <div class="post__badge__name">
+            325 people find this answer misleading
+          </div>
+        </div>
+        <button class="post__read">Read</button>
+      </div>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="post post--featured">
+      <div class="post__title">What myth that actually true?</div>
+      <div class="post__answerer">
+        <div class="post__answerer__profile">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="post__answerer__data">
+          <div class="post__answerer__data__name">Thomas N. Lean</div>
+          <div class="post__answerer__data__credential">Scientist at NASA</div>
+        </div>
+        <div class="post__answerer__date">
+          21 September 2021
+        </div>
+      </div>
+      <div class="post__tags">
+        <div class="post__tags__solid" style="background-color: #55F;">Images</div>
+        <div class="post__tags__tag">Science</div>
+        <div class="post__tags__tag">Myth</div>
+        <div class="post__tags__tag">Art</div>
+      </div>
+      <hr style="margin: 20px 0;">
+      <div class="post__footer">
+        <div class="post__badge" style="--color-badge: #F58;">
+          <div class="post__badge__icon">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"></path></svg>
+          </div>
+          <div class="post__badge__name">
+            12.3K people find this answer helpful
+          </div>
+        </div>
+        <button class="post__read">Read</button>
+      </div>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="post">
+      <div class="post__title">Did solar energy can really replace oil?</div>
+      <div class="post__answerer">
+        <div class="post__answerer__profile">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="post__answerer__data">
+          <div class="post__answerer__data__name">Thomas N. Lean</div>
+          <div class="post__answerer__data__credential">Scientist at NASA</div>
+        </div>
+        <div class="post__answerer__date">
+          10 November 2022
+        </div>
+      </div>
+      <div class="post__tags">
+        <div class="post__tags__solid" style="background-color: #F0F;">Limited</div>
+        <div class="post__tags__tag">Science</div>
+        <div class="post__tags__tag">Myth</div>
+        <div class="post__tags__tag">Art</div>
+      </div>
+      <hr style="margin: 20px 0;">
+      <div class="post__footer">
+        <div class="post__badge">
+          <div class="post__badge__icon">
+            <!-- BADGE ICON -->
+          </div>
+          <div class="post__badge__name">
+            Empty
+          </div>
+        </div>
+        <button class="post__read">Read</button>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

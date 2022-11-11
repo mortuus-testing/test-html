@@ -44,6 +44,24 @@
       overflow-y: auto;
     }
 
+    .controls {
+      position: fixed;
+      height: 40px;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      background-color: #181818;
+    }
+    .controls-item {
+      width: 40px;
+      height: 40px;
+      padding: 9px;
+      color: white;
+    }
+    .controls-item--active {
+      background-color: #44C;
+    }
+
     ::-webkit-scrollbar {
       width: 6px;
     }
@@ -66,6 +84,13 @@
       #display {order: 1}
       #editor {order: 2}
     }
+
+
+    /* MARKDOWN */
+    blockquote {
+      padding-left: 20px;
+      border-left: 3px solid #55C;
+    }
   </style>
 </head>
 <body>
@@ -73,14 +98,43 @@
   <textarea id="editor" placeholder="What to write today?"></textarea>
   <div id="display"></div>
 
+  <div class="controls">
+    <div class="controls-item controls-edit">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+    </div>
+    <div class="controls-item controls-read">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+    </div>
+    <div class="controls-item controls-item--active controls-both">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     const editor = document.querySelector('#editor')
     const display = document.querySelector('#display')
 
+    const edit = document.querySelector('.controls-edit');
+    const read = document.querySelector('.controls-read');
+    const both = document.querySelector('.controls-both')
+
     editor.addEventListener('input', function(e) {
       display.innerHTML = marked.parse(this.value)
     })
+
+    edit.onclick = () => {
+      editor.style.display = ''
+      display.style.display = 'none'
+    }
+    read.onclick = () => {
+      display.style.display = ''
+      editor.style.display = 'none'
+    }
+    both.onclick = () => {
+      editor.style.display = ''
+      display.style.display = ''
+    }
   </script>
 </body>
 </html>

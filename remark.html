@@ -115,6 +115,7 @@
     const editor = document.querySelector('#editor')
     const display = document.querySelector('#display')
 
+    const controls = document.querySelectorAll('.controls-item')
     const edit = document.querySelector('.controls-edit');
     const read = document.querySelector('.controls-read');
     const both = document.querySelector('.controls-both')
@@ -124,14 +125,26 @@
     })
 
     edit.onclick = () => {
+      controls.forEach(control => {
+        if (control.classList.contains('controls-edit')) {control.classList.add('controls-item--active'); return}
+        control.classList.remove('controls-item--active')
+      })
       editor.style.display = ''
       display.style.display = 'none'
     }
     read.onclick = () => {
+      controls.forEach(control => {
+        if (control.classList.contains('controls-read')) {control.classList.add('controls-item--active'); return}
+        control.classList.remove('controls-item--active')
+      })
       display.style.display = ''
       editor.style.display = 'none'
     }
     both.onclick = () => {
+      controls.forEach(control => {
+        if (control.classList.contains('controls-both')) {control.classList.add('controls-item--active'); return}
+        control.classList.remove('controls-item--active')
+      })
       editor.style.display = ''
       display.style.display = ''
     }

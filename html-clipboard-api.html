@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Clipboard API</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .editor {
+      width: 400px;
+      height: 300px;
+      border: 1px solid #888;
+    }
+    .execute {
+      width: 400px;
+      height: 50px;
+      font-weight: bold;
+      background-color: #555;
+      color: white;
+    }
+    .screen {
+      width: 400px;
+      height: 50px;
+      border: 1px solid #888;
+    }
+
+    .editor > h1 {color: red}
+    .editor > p {color: blue}
+    .editor > span {color: #FF0}
+    .editor > div {color: #0FF}
+  </style>
+</head>
+<body>
+  
+  <div class="editor" contenteditable="true">
+    <h1>Editor</h1>
+    <p>Content editable</p>
+    <span> span</span>
+
+  </div>
+  <button class="execute">
+    Execute
+  </button>
+  <div class="screen"></div>
+
+  <script>
+    // Clipboard API
+    document.querySelector('.execute').addEventListener('click', execute)
+
+    async function execute() {
+      const   clip = await navigator.clipboard.readText(),
+         selection = window.getSelection(),
+             range = selection.getRangeAt(0)
+
+      const node = selection.anchorNode ? selection.anchorNode.parentNode : null
+      
+
+      const selected = range.startContainer.textContent.substring(range.startOffset, range.endOffset)
+      
+      // console.log(node.innerHTML = node.textContent.substring(0, range.startOffset) + `<u>${selected}</u>` + node.textContent.substring(range.endOffset))
+      console.log(selection.type)
+    }
+
+  </script>
+</body>
+</html>

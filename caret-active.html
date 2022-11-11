@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caret Active</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      color: #DDD;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: sans-serif;
+    }
+
+    .editor, .screen {
+      width: 100%;
+      max-width: 500px;
+      height: 50vh;
+      background-color: #181818;
+      border: 1px solid #333;
+      padding: 50px;
+    }
+    [contentEditable = true]:focus {
+      outline: none;
+    }
+    .screen > textarea {
+      padding: 5px;
+      margin: 5px;
+      width: 100%;
+    }
+    .screen > textarea:focus {
+      outline: none;
+    }
+    .editor {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .block {
+      background-color: #222;
+      padding: 15px 10px;
+    }
+    .bold {font-weight: bold;}
+    .italic {font-style: italic;}
+  </style>
+</head>
+<body>
+  
+  <div class="editor">
+    <div class="block" id="block-101" contenteditable="true">
+      This is a block element with id 101
+    </div>
+    <div class="block" id="block-102" contenteditable="true">
+      This is a block element with id 102
+      <span class="bold" style="color: #F55">BOLD</span>
+      <span style="color: #55F">Color</span>
+      <span class="italic">ITALIC</span>
+      <span class="bold italic">COMBINATION</span>
+    </div>
+  </div>
+  <div class="screen">
+
+    <h3>Focused Block</h3>
+    <textarea id="focused-block"rows="3"></textarea>
+
+    <h3>Focused Text</h3>
+    <textarea id="focused-text"rows="5"></textarea>
+
+  </div>
+
+  <script>
+    const debugInstances = new Map()
+    function createDebugInstance(_el, _initialValue) {
+      const key = `key_${Math.floor(Math.random() * 10e6)}`
+
+      debugInstances.set(key, _initialValue)
+      _el.value = _initialValue
+
+      const getter = () => {return debugInstances.get(key)}
+      const setter = (value) => {
+        debugInstances.set(key, value);
+        _el.value = value
+      }
+
+      return [getter, setter]
+    }
+
+    const [getFocusedBlock, setFocusedBlock] = createDebugInstance(document.querySelector('#focused-block'), 'empty')
+    const [getFocusedText, setFocusedText] = createDebugInstance(document.querySelector('#focused-text'), 'empty')
+
+    function applyListener(block) {
+      block.addEventListener('focus', e => {
+        setFocusedBlock(e.currentTarget.id);
+      })
+      block.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+        }
+      })
+    }
+
+    document.querySelectorAll('.block').forEach(block => {
+      applyListener(block)
+    })
+
+    document.onselectionchange = e => {
+      const selection = window.getSelection()
+      const classList = Array.prototype.join.call(selection.anchorNode.parentNode.classList, ' ')
+      setFocusedText(classList)
+      console.log(selection.getRangeAt(0).commonAncestorContainer)
+    }
+
+  </script>
+</body>
+</html>

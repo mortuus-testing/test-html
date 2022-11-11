@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stacked Text Style</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+    main {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      padding: 100px 0;
+      background-color: #181818;
+    }
+    .control {
+      width: 100px;
+      height: 30px;
+      margin: 50px 10px;
+    }
+    .control > button {
+      width: 30px;
+      height: 30px;
+    }
+    .screen {
+      padding: 50px 20px;
+      white-space: pre-wrap;
+    }
+    .block {
+      width: 100%;
+    }
+    .bold {
+      font-weight: bold;
+    }
+    .underline {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <main>
+
+    <div class="control">
+      <button class="btn-bold">B</button>
+      <button class="btn-underline">U</button>
+    </div>
+
+    <div class="block" contenteditable="true">
+      Root
+      <span>Start</span>
+      <span class="bold">BOLD</span>
+      <span class="underline">UNDERLINE</span>
+      <span>End</span>
+    </div>
+
+
+    <!-- <block>
+      This is the
+      <tb>
+        styled text and clear
+      </tb>
+      <tu>
+        not so bad
+        <tb>
+          huh?
+        </tb>
+      </tu>
+    </block> -->
+
+    <!-- <div class="block" contenteditable="true">
+      This is the example block
+    </div> -->
+
+    <div class="screen">
+
+    </div>
+
+    <script>
+      const block = document.querySelector('.block')
+      const screen = document.querySelector('.screen')
+      const boldButton = document.querySelector('.btn-bold')
+      const underlineButton = document.querySelector('.btn-underline')
+
+      block.addEventListener('mouseenter', e => {
+        screen.textContent = block.innerHTML
+      })
+
+      block.addEventListener('mouseup', e => {
+        const selection = window.getSelection()
+
+        if (selection.isCollapsed) {return}
+
+        const range = selection.getRangeAt(0)
+        const text  = selection.toString()
+        let node, parent, isSpan, isFull, isRoot
+
+        node = range.startContainer;
+        if (node.nodeName === '#text') {node = node.parentNode}
+        if (node.nodeName === 'SPAN') {
+          isSpan = true
+          isRoot = false
+          isFull = node.textContent === text ? true : false
+        } else {
+          isSpan = false;
+          isRoot = node.classList.contains('block') ? true : false
+          isFull = false;
+        }
+
+        console.log('isSpan = ', isSpan)
+        console.log('isFull = ', isFull)
+
+
+
+        // console.log(range.startContainer, range.startOffset)
+        // console.log(range.endContainer, range.endOffset)
+        console.log(range.startContainer.parentNode)
+      })
+
+      boldButton.addEventListener('click', () => {
+        const selection = window.getSelection()
+        const range = selection.getRangeAt(0)
+        const text = selection.toString()
+        const wrapper = document.createElement('b')
+        wrapper.textContent = text
+        range.deleteContents()
+        range.insertNode(wrapper)
+      })
+      underlineButton.addEventListener('click', () => {
+        // const selection = window.getSelection()
+        // const range = selection.getRangeAt(0)
+        // const text = selection.toString()
+        // const wrapper = document.createElement('u')
+        // wrapper.textContent = text
+        // range.deleteContents()
+        // range.insertNode(wrapper)
+        document.execCommand('bold')
+      })
+
+
+    </script>
+
+  </main>
+</body>
+</html>

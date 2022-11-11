@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor.js</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+    }
+
+    .editor {
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      background-color: #181818;
+    }
+    .editor__workspace {
+      flex-grow: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .editor__toolbar {
+      width: 100%;
+      height: 30px;
+      display: flex;
+    }
+    .toolbar__item {
+      height: 30px;
+      padding: 0 10px;
+    }
+    .block {
+      width: 100%;
+      padding: 20px;
+      background-color: #222;
+      color: #DDD;
+    }
+    [contentEditable = true] {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="editor">
+    <div class="editor__workspace"></div>
+    <div class="editor__toolbar">
+      <button class="toolbar__item toolbar__add-block">
+        + Block
+      </button>
+      <button class="toolbar__item toolbar__add-text">
+        + Text
+      </button>
+    </div>
+  </div>
+  <script>
+    const workspace = document.querySelector('.editor__workspace');
+    const addBlockButton = document.querySelector('.toolbar__add-block');
+    const addTextButton = document.querySelector('.toolbar__add-text');
+
+    addBlockButton.onclick = createBlock
+
+    function createBlock() {
+      const block = document.createElement('div');
+      const focusedBlock = document.querySelector(':focus').classList.contains('block') ? document.querySelector(':focus') : null
+
+      block.classList.add('block')
+      block.contentEditable = 'true'
+      applyEventListener(block)
+
+      if (focusedBlock) {
+        focusedBlock.parentNode.insertBefore(block, focusedBlock.nextSibling)
+      } else {
+        workspace.appendChild(block)
+      }
+
+      block.focus()
+    }
+
+    function applyEventListener(block) {
+      block.addEventListener('keydown', e => {
+
+        // Create new block on enter
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          createBlock()
+          return null
+        }
+
+        // Delete block if empty
+        if (e.key === 'Backspace') {
+          if (e.currentTarget.textContent !== '') {return}
+          e.preventDefault()
+
+          const prev = e.currentTarget.previousElementSibling
+          if (prev) {focusToBlock(prev)}
+          e.currentTarget.remove()
+          return null
+        }
+
+      })
+    }
+
+    function focusToBlock(block) {
+      const selection = window.getSelection()
+      const range = document.createRange()
+
+      range.selectNodeContents(block)
+      range.collapse(false)
+      selection.removeAllRanges()
+      selection.addRange(range)
+    }
+  </script>
+</body>
+</html>

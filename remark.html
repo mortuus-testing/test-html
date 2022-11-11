@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      padding: 50px;
+      display: flex;
+      gap: 10px;
+    }
+    #editor, #display {
+      width: 100%;
+      height: 100%;
+      padding: 50px;
+      border: 1px solid #555;
+    }
+
+    #editor {
+      background-color: #222;
+      color: #DDD;
+      resize: none;
+      font-size: 15px;
+    }
+    #editor:focus {outline: none}
+
+    #display {
+      color: #DDD;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      overflow-y: auto;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #888;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: #555;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #999;
+    }
+
+    @media screen and (max-width: 1000px) {
+      body {padding: 0;}
+    }
+
+    @media screen and (max-width: 780px) {
+      body {flex-direction: column;}
+      #display {order: 1}
+      #editor {order: 2}
+    }
+  </style>
+</head>
+<body>
+  
+  <textarea id="editor" placeholder="What to write today?"></textarea>
+  <div id="display"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const editor = document.querySelector('#editor')
+    const display = document.querySelector('#display')
+
+    editor.addEventListener('input', function(e) {
+      display.innerHTML = marked.parse(this.value)
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Based Editor</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: calc(100vw - 30px);
+      min-height: 100vh;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      color: white;
+      font-family: sans-serif;
+    }
+    .debugger {
+      width: 300px;
+      height: 100vh;
+      background-color: #222;
+      padding: 40px;
+    }
+    .debugger > input {
+      font-weight: bold;
+      padding: 10px;
+    }
+
+    .editor {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      background-color: #181818;
+      padding: 100px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .editor-control {
+      width: 100%;
+      height: 30px;
+      display: flex;
+    }
+    .editor-control > button {
+      width: 30px;
+      height: 30px;
+    }
+
+    [contentEditable = true]:focus {
+      outline: none;
+    }
+    .block {
+      width: 100%;
+      padding: 15px 10px;
+      background-color: #282828;
+      font-family: sans-serif;
+    }
+
+    /* UTILITY CLASS */
+    .bold {
+      font-weight: bold;
+    }
+    .underline {
+      text-decoration: underline;
+    }
+    .italic {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="editor">
+    <div class="editor-control">
+      <button class="btn-bold">B</button>
+      <button class="btn-italic">I</button>
+      <button class="btn-underline">U</button>
+    </div>
+    <div class="block" id="block_101" contenteditable="true">101</div>
+    <div class="block" id="block_102" contenteditable="true">102</div>
+    <div class="block" id="block_103" contenteditable="true">103</div>
+    <div class="block" id="block_104" contenteditable="true">104</div>
+
+    <div class="block" id="block_105" contenteditable="true">
+      <span>Normal</span>
+      <span class="bold">Bold</span>
+      <span class="italic">Italic</span>
+      <span class="underline">Underline</span>
+      <span class="bold italic underline">Combination</span>
+      <code>Code</code>
+      <span></span>
+    </div>
+    <div class="block" id="block_105" contenteditable="true">
+      Normal
+      <b>Bold</b>
+      <i>Italic</i>
+      <u>Undeline</u>
+      <b><i><u>Combination</u></i></b>
+    </div>
+
+    <div class="block" id="block_107" contenteditable="true">
+      About <b>This is the <i>styled </b> text </i>
+    </div>
+    <div class="block" id="block_107" contenteditable="true">
+      About <span class="bold">This is the <span class="italic">styled </span> text </span>
+    </div>
+  </div>
+
+
+  <div class="debugger">
+    <h3>CURRENT FOCUS :</h3>
+    <input type="text" class="debugger__current__focus" />
+  </div>
+
+  <script>
+    document.querySelectorAll('.block').forEach(block => {
+      applyListener(block)
+    })
+
+    document.querySelector('.btn-bold').addEventListener('click', e => {
+      console.log(getElementsInBetween())
+    })
+
+
+
+    // Utils
+    function createBlock() {
+      const id = `block_${Math.floor(Math.random() * 10e6)}`
+      const block = document.createElement('div')
+
+      block.contentEditable = 'true'
+      block.classList.add('block')
+      block.id = id
+      applyListener(block)
+      
+      const editor  = document.querySelector('.editor')
+      const focus   = document.getElementById(getCurrentFocus())
+
+      editor.insertBefore(block, focus.nextElementSibling)
+      block.focus()
+    }
+
+    function applyListener(block) {
+      block.addEventListener('focus', e => {
+        setCurrentFocus(e.currentTarget.id)
+      })
+
+      block.addEventListener('keydown', e => {
+        if (e.shiftKey && e.key === 'Enter') {
+          e.preventDefault()
+          document.getElementById(getCurrentFocus()).innerHTML += '<br>'
+          moveCaretToEnd()
+          return
+        }
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          createBlock()
+          return
+        }
+        if (e.ctrlKey && e.key === 's') {
+          e.preventDefault()
+          return
+        }
+      })
+
+      block.addEventListener('mousedown', e => {
+
+        document.onmouseup = () => {
+          const selection = window.getSelection()
+          const node = selection.anchorNode
+          const range = selection.getRangeAt(0)
+          const parent = range.startContainer.parentNode
+          
+          // console.log(Array.prototype.indexOf.call(parent.childNodes, range.startContainer))
+          // console.log(range.startContainer, range.endContainer)
+          
+          // if (selection.toString() !== '') {
+          //   const text = selection.toString()
+          //   const span = document.createElement('span')
+
+          //   span.innerHTML = text
+          //   span.style.color = 'red'
+
+          //   range.deleteContents()
+          //   range.insertNode(span)
+          //   console.log('EDit')
+          // }
+
+          document.onmouseup = null
+        }
+      })
+
+      block.addEventListener('input', e => {
+        let text = e.currentTarget.innerHTML
+
+        text = text.replace(/(?:<div><br><\/div>|<div>(.*?)<\/div>)/g, '\n$1')
+        console.log(text)
+        if (text === '') {
+          console.log('empty')
+          const span = document.createElement('span');
+          span.innerHTML = 's'
+          span.focus();
+          e.currentTarget.appendChild(span)
+        }
+      })
+    }
+
+    function moveCaretToEnd() {
+      const focus = document.getElementById(getCurrentFocus())
+      const range = document.createRange()
+      const selection = window.getSelection()
+      
+      range.selectNodeContents(focus)
+      range.collapse(false)
+      selection.removeAllRanges()
+      selection.addRange(range)
+    }
+
+    function getElementsInBetween() {
+      const selection = window.getSelection()
+      const range = selection.getRangeAt(0)
+      const text = selection.toString()
+      const parent = selection.anchorNode ? selection.anchorNode.parentElement.parentElement : null
+
+
+      const isSingleParent = range.startContainer === range.endContainer
+      const startIndex = Array.prototype.indexOf.call(parent.childNodes, range.startContainer)
+      const endIndex = Array.prototype.indexOf.call(parent.childNodes, range.endContainer)
+
+
+      parent.childNodes.forEach(node => {
+        console.log(node)
+      })
+
+      console.log('----------------------------')
+
+      // console.log(
+      //   'Single Parent = ', isSingleParent 
+      // ),
+      // console.log(
+      //   'Start Index = ', startIndex
+      // )
+      // console.log(
+      //   'End Index = ', endIndex
+      // )
+      // console.log(
+      //   'Text = ', text
+      // )
+
+
+      return []
+    }
+
+    // DEBUG
+    const debugInstances = new Map()
+    function createDebugInstance(_el, _initialValue) {
+      const key = `key_${Math.floor(Math.random() * 10e6)}`
+
+      debugInstances.set(key, _initialValue)
+      _el.value = _initialValue
+
+      const getter = () => {return debugInstances.get(key)}
+      const setter = (value) => {
+        debugInstances.set(key, value);
+        _el.value = value
+      }
+
+      return [getter, setter]
+    }
+
+    const [getCurrentFocus, setCurrentFocus] = createDebugInstance(document.querySelector('.debugger__current__focus'), 'empty')
+
+  </script>
+</body>
+</html>

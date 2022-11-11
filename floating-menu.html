@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floating Menu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #111;
+      color: #DDD;
+    }
+
+    .floating-menu {
+      width: 150px;
+      background-color: #222;
+      border-radius: 5px;
+    }
+    .floating-menu-item {
+      width: 100%;
+      height: 35px;
+      font-family: sans-serif;
+      padding: 0 10px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      font-weight: bold;
+      font-size: 13px;
+    }
+    .floating-menu-item-icon {
+      width: 35px;
+      height: 35px;
+      padding: 8px;
+      color: #888;
+    }
+    .floating-menu-item:focus {
+      outline: none;
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="floating-menu">
+    <div tabindex="0" data-type="text" class="floating-menu-item">
+      <div class="floating-menu-item-icon">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9a2 2 0 10-4 0v5a2 2 0 01-2 2h6m-6-4h4m8 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      Text
+    </div>
+    <div tabindex="0" data-type="styled-text" class="floating-menu-item">
+      <div class="floating-menu-item-icon">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V9a2 2 0 00-2-2m2 4v4a2 2 0 104 0v-1m-4-3H9m2 0h4m6 1a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      Styled Text
+    </div>
+    <div tabindex="0" data-type="emoticon" class="floating-menu-item">
+      <div class="floating-menu-item-icon">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      Emoticon
+    </div>
+    <div tabindex="0" data-type="inline-code" class="floating-menu-item">
+      <div class="floating-menu-item-icon">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 15.536c-1.171 1.952-3.07 1.952-4.242 0-1.172-1.953-1.172-5.119 0-7.072 1.171-1.952 3.07-1.952 4.242 0M8 10.5h4m-4 3h4m9-1.5a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+      Inline Code
+    </div>
+  </div>
+
+  
+  <script>
+    document.querySelectorAll('.floating-menu-item').forEach(item => {
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          alert(e.currentTarget.getAttribute('data-type'))
+        }
+        if (e.key === 'ArrowUp') {
+          if (e.currentTarget.previousElementSibling) {
+            e.currentTarget.previousElementSibling.focus()
+          }
+        }
+        if (e.key === 'ArrowDown') {
+          if (e.currentTarget.nextElementSibling) {
+            e.currentTarget.nextElementSibling.focus()
+          }
+        }
+
+      })
+      item.addEventListener('click', e => {
+        alert(e.currentTarget.getAttribute('data-type'))
+      })
+    })
+  </script>
+</body>
+</html>

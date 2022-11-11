@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown Editor</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      padding: 50px;
+      gap: 10px;
+      color: #DDD;
+      font-family: sans-serif;
+    }
+
+    .editor, .preview {
+      width: 500px;
+      min-height: 100%;
+      border: 1px solid #555;
+      padding: 40px;
+    }
+    .editor {
+      background-color: #222;
+      color: white;
+    }
+    .editor:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <textarea class="editor"></textarea>
+  <div class="preview">
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const editor = document.querySelector('.editor')
+    const preview = document.querySelector('.preview')
+
+    editor.addEventListener('input', e => {
+      preview.innerHTML = marked.parse(editor.value)
+    })
+  </script>
+</body>
+</html>

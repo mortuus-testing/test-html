@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styled BLock Inline</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+    }
+
+    .editor {
+      width: 100%;
+      max-width: 600px;
+      height: 100vh;
+      /* background-color: #EEE; */
+      padding: 50px;
+    }
+
+    .block {
+      width: 100%;
+    }
+    .text {
+      display: inline-block;
+      min-width: 10px;
+    }
+    .text:empty {
+      background-color: red;
+    }
+    .normal-text {
+
+    }
+    .styled-text {
+      color: red;
+      position: relative;
+    }
+    .styled-text-menu {
+      position: absolute;
+      left: 0;
+      top: -30px;
+      background-color: red;
+      transition: opacity .5s;
+      display: flex;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .styled-text:focus .styled-text-menu {
+      /* display: flex; */
+      opacity: 1;
+      width: 200px;
+      height: 30px;
+    }
+    [contentEditable = true]:focus {
+      outline: none;
+      background-color: #EEE;
+    }
+    .inline-node-select {
+      display: none;
+      flex-direction: column;
+      width: 100px;
+      height: auto;
+      position: fixed;
+    }
+    .inline-node-select > button {
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="editor">
+    <div class="inline-node-select">
+      <button>Text</button>
+      <button>Styled Text</button>
+      <button>Inline Code</button>
+      <button>Emoticon</button>
+    </div>
+
+    <div class="block">
+      <span class="text normal-text" contenteditable="true">This is a block with</span>
+      <span class="text styled-text" contenteditable="true">style<div class="styled-text-menu"></div></span>
+      <span class="text normal-text" contenteditable="true">text.</span>
+    </div>
+
+
+  </div>
+
+  <script>
+    const createInlineNodeMenu = document.querySelector('.inline-node-select')
+
+    document.querySelectorAll('.text').forEach(text => {
+      text.addEventListener('keydown', e => {
+        if (e.shiftKey && e.key === 'Enter') {
+          e.preventDefault()
+          createStyledText(e.currentTarget);
+          createInlineNodeMenu.style.display = 'flex'
+          e.currentTarget.appendChild(createInlineNodeMenu)
+          return
+        }
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          createBlock(e.currentTarget);
+          return
+        }
+
+      })
+    })
+
+    function createBlock(el) {
+      const text = document.createElement('span')
+      text.setAttribute('class', 'text normal-text')
+      text.contentEditable = 'true'
+      const block = document.createElement('div');
+      block.classList.add('block')
+      block.appendChild(text)
+      el.parentNode.insertBefore(block, el.nextSibling)
+      text.focus()
+    }
+    function createStyledText(el) {
+      const styledText = document.createElement('span')
+      styledText.setAttribute('class', 'text styled-text')
+      styledText.contentEditable = 'true'
+      el.parentNode.insertBefore(styledText, el.nextSibling)
+      styledText.focus()
+    }
+  </script>
+</body>
+</html>

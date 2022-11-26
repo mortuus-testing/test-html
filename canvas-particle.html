@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Particle</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Canvas -->
+
+  <script>
+    class Canvas {
+      constructor() {
+          this.canvas = document.createElement('canvas')
+          this.canvas.classList.add('canvas')
+          this.canvas.setAttribute('width', 400)
+          this.canvas.setAttribute('height', 400)
+          this.canvas.style.borderRadius = '999px'
+          this.canvas.style.backgroundColor = '#333'
+          this.ctx = this.canvas.getContext('2d')
+          document.body.appendChild(this.canvas)
+      }
+
+      drawLine(startX, startY, endX, endY) {
+        this.ctx.moveTo(startX, startY)
+        this.ctx.lineTo(endX, endY)
+        this.ctx.strokeStyle = 'white'
+        this.ctx.stroke()
+      }
+
+      drawCircle(x, y, r) {
+        this.ctx.beginPath()
+        this.ctx.arc(x, y, r, 0, 2 * Math.PI)
+        this.ctx.lineWidth = '5'
+        this.ctx.strokeStyle = 'white'
+        this.ctx.stroke()
+        this.ctx.fillStyle = '#555'
+        this.ctx.fill()
+      }
+    }
+
+   const canvas = new Canvas()
+
+   canvas.drawLine(50, 50, 350, 350)
+   canvas.drawCircle(200, 200, 100)
+
+
+    // const drawALine = (start, end) => {
+
+    // }
+  </script>
+</body>
+</html>

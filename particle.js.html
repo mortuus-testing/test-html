@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>particle.js</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #111;
+    }
+  </style>
+</head>
+<body>
+  
+  
+  <script>
+    class Particle {
+      constructor(x, y) {
+        this.el = document.createElement('div')
+        this.el.style.position = 'fixed'
+        this.el.style.top  = `${y}px`
+        this.el.style.left = `${x}px`
+        this.el.style.width = '10px'
+        this.el.style.height = '10px'
+        this.el.style.backgroundColor = 'red'
+        this.el.style.borderRadius = '999px'
+        this.el.style.opacity = '0.9'
+        document.body.appendChild(this.el)
+
+        this.animate()
+        this.setTimer()
+      }
+
+      animate() {
+        this.interval = setInterval(() => {
+          const y = parseInt(this.el.style.top) + 1
+          const x = parseInt(this.el.style.left) + 1
+          const opacity = parseFloat(this.el.style.opacity) - .01
+          
+          this.el.style.top  = `${y}px`
+          this.el.style.left = `${x}px`
+          this.el.style.opacity = opacity
+          // console.log(this.el.style.opacity)
+        }, 10)
+      }
+
+      setTimer() {
+        setTimeout(() => {
+          clearInterval(this.interval)
+          this.el.remove()
+        }, 1000)
+      }
+    }
+
+    document.body.addEventListener('mousemove', e => {
+      const x = e.clientX
+      const y = e.clientY
+      new Particle(x, y)
+    })
+  </script>
+</body>
+</html>

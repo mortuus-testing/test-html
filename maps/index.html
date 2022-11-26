@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Procedural Map Generation</title>
+</head>
+<body>
+  <div id="map-container">
+    <canvas id="map"></canvas>
+  </div>
+  <div id="settings-container">
+    <h3>Map Style</h3>
+    <div id="settings-map-style-container">
+      <input type="radio" class="map-style" name="map-style" id="biomes">
+      <label for="biomes" class="style-button">Biomes</label>
+      <input checked="true" type="radio" class="map-style" name="map-style" id="archipelago">
+      <label for="archipelago" class="style-button">Archipelago</label>
+      <input type="radio" class="map-style" name="map-style" id="desert">
+      <label for="desert" class="style-button">Desert</label>
+      <input type="radio" class="map-style" name="map-style" id="polar">
+      <label for="polar" class="style-button">Polar</label>
+    </div>
+
+    <h3>Seed</h3>
+    <div id="base-settings">
+      <div id="seed-input-container">
+        <input id="seed-input" type="number" placeholder="seed" value="6492157">
+        <div id="seed-lock">
+          <svg class="unlocked-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z"></path></svg>
+          <svg class="locked-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+        </div>
+      </div>
+      <button id="generate-button">Generate</button>
+      <button id="download-button">Download</button>
+    </div>
+
+    <!-- Biomes Settings -->
+    <div style="display: none;" data-map-style="biomes" class="style-settings">
+      <h3 class="settings-title">Scale</h3>
+      <input type="range" id="biomes-scale-range" min="3" max="14" value="5">
+      <h3 class="settings-title">Details</h3>
+      <input type="range" id="biomes-details-range" min="1" max="8" value="6">
+    </div>
+
+    <!-- Archipelago Settings -->
+    <div style="display: flex;" data-map-style="archipelago" class="style-settings">
+      <h3 class="settings-title">Scale</h3>
+      <input type="range" id="archipelago-scale-range" min="1" max="14" value="3">
+      <h3 class="settings-title">Details</h3>
+      <input type="range" id="archipelago-details-range" min="1" max="18" value="12">
+      <div class="style-settings-sub">
+        <input type="checkbox" id="archipelago-smooth-edge-checkbox" checked="true">
+        <h3 class="settings-title">Smooth Edge</h3>
+      </div>
+      <input type="range" id="archipelago-smooth-edge-range" min="2" max="8" value="5">
+    </div>
+    
+    <!-- Desert Settings -->
+    <div style="display: none;" data-map-style="desert" class="style-settings">
+      <h3 class="settings-title">Scale</h3>
+      <input type="range" id="desert-scale-range" min="1" max="14" value="10">
+      <h3 class="settings-title">Details</h3>
+      <input type="range" id="desert-details-range" min="1" max="12" value="8">
+    </div>
+
+    <!-- Polar Settings -->
+    <div style="display: none;" data-map-style="polar" class="style-settings">
+      <h3 class="settings-title">Scale</h3>
+      <input type="range" id="polar-scale-range" min="1" max="14" value="7">
+      <h3 class="settings-title">Details</h3>
+      <input type="range" id="polar-details-range" min="1" max="20" value="13">
+      <div class="style-settings-sub">
+        <input type="checkbox" id="polar-smooth-edge-checkbox" checked="true">
+        <h3 class="settings-title">Smooth Edge</h3>
+      </div>
+      <input type="range" id="polar-smooth-edge-range" min="2" max="8" value="5">
+    </div>
+
+  </div>
+
+  <script src="./radial.js"></script>
+  <script src="./perlin.js"></script>
+  <script src="./map.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>

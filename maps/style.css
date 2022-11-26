@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  font-family: sans-serif;
+}
+
+/* Responsive Base Layout */
+#map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 15px;
+}
+#map {
+  border: 5px solid white;
+  aspect-ratio: 1/1;
+  height: 100%;
+  width: 100%;
+}
+
+#settings-container {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+@media screen and (min-width: 1000px) {
+  body {
+    flex-direction: row;
+  }
+  #map-container {
+    flex-grow: 1;
+  }
+  #map {
+    width: 100%;
+    max-width: 80vh;
+    height: auto;
+  }
+  #settings-container {
+    flex-grow: 0;
+    width: 350px;
+  }
+}
+@media screen and (min-width: 400px) {
+  #map-container {
+    padding: 40px;
+  }
+}
+
+/* Map Styles Button */
+#settings-map-style-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+input[type=radio] {
+  display: none;
+}
+.style-button {
+  font-size: small;
+  padding: 10px 15px;
+  font-weight: bold;
+  color: black;
+  border: 1px solid black;
+  transition: .1s;
+  user-select: none;
+}
+input[type=radio]:checked + .style-button {
+  background-color: black;
+  color: white;
+}
+
+/* Base Settings */
+#base-settings {
+  --size: 40px;
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+  gap: 5px;
+}
+#seed-input-container {
+  display: flex;
+  border: 1px solid black;
+}
+#seed-input {
+  width: 100%;
+  height: var(--size);
+  padding: 0 10px;
+  border: none;
+}
+#seed-input:focus {
+  outline: none;
+}
+#seed-lock {
+  width: var(--size);
+  height: var(--size);
+  min-width: var(--size);
+  min-height: var(--size);
+  padding: 9px;
+  user-select: none;
+}
+.locked-icon {
+  display: none;
+}
+.seed--locked .locked-icon {
+  display: flex;
+}
+.seed--locked .unlocked-icon {
+  display: none;
+}
+#generate-button, #download-button {
+  width: 100%;
+  color: white;
+  font-weight: bold;
+  height: var(--size);
+  padding: 0 10px;
+  border: none;
+}
+#generate-button {background-color: #448;}
+#download-button {background-color: #484;}
+
+/* Base Individual Style */
+.style-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.style-settings-sub {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.style-settings-sub > h3 {
+  margin: 0;
+}
+.style-settings-sub > input[type=checkbox] {
+  width: 15px;
+  height: 15px;
+}
+.settings-title {
+  margin-top: 10px;
+}
+
+
+/* Individual Styling for Specific Map */
